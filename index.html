@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>StudyLab — Central de Estudos</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --primary: #5b5ce2;
+      --primary-dark: #4546bd;
+      --secondary: #e9e9ff;
+      --border: #e4e7ec;
+      --success: #16a34a;
+      --danger: #dc2626;
+    }
+
+    body.dark {
+      --bg: #101322;
+      --card: #191d2d;
+      --text: #f4f6ff;
+      --muted: #a7aec4;
+      --secondary: #292d4b;
+      --border: #30354c;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      transition: 0.3s;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #5b5ce2, #8b5cf6);
+      color: white;
+      padding: 30px 7%;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      color: #c7d2fe;
+    }
+
+    .theme-btn {
+      border: none;
+      background: rgba(255,255,255,.2);
+      color: white;
+      padding: 11px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    /* HERO */
+    .hero {
+      max-width: 1200px;
+      margin: 35px auto;
+      padding: 0 25px;
+    }
+
+    .hero-box {
+      background: var(--card);
+      border-radius: 24px;
+      padding: 45px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 35px rgba(0,0,0,.06);
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 48px);
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 700px;
+      line-height: 1.7;
+    }
+
+    /* SEARCH */
+    .search {
+      margin-top: 25px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .search input {
+      flex: 1;
+      padding: 15px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      border-radius: 12px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 25px 50px;
+    }
+
+    .section-title {
+      margin: 40px 0 20px;
+    }
+
+    .section-title h2 {
+      font-size: 28px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* SUBJECTS */
+    .subjects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+    }
+
+    .subject {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 25px;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .subject:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: 0 10px 25px rgba(91,92,226,.12);
+    }
+
+    .subject-icon {
+      font-size: 35px;
+      margin-bottom: 15px;
+    }
+
+    .subject h3 {
+      margin-bottom: 8px;
+    }
+
+    .subject p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* CONTENT */
+    .content {
+      margin-top: 30px;
+    }
+
+    .content-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+    }
+
+    .content-card h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .content-card h3 {
+      margin: 20px 0 10px;
+    }
+
+    .content-card p,
+    .content-card li {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .content-card ul {
+      padding-left: 20px;
+    }
+
+    .formula {
+      background: var(--secondary);
+      color: var(--text);
+      padding: 18px;
+      border-radius: 12px;
+      margin: 15px 0;
+      font-weight: bold;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    /* QUIZ */
+    .quiz {
+      background: linear-gradient(135deg, #5b5ce2, #8b5cf6);
+      color: white;
+      border-radius: 22px;
+      padding: 30px;
+      margin-top: 30px;
+    }
+
+    .quiz h2 {
+      margin-bottom: 20px;
+    }
+
+    .question {
+      background: rgba(255,255,255,.1);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    .question p {
+      margin-bottom: 12px;
+      font-weight: bold;
+    }
+
+    .question label {
+      display: block;
+      padding: 8px 0;
+      cursor: pointer;
+    }
+
+    .quiz button {
+      background: white;
+      color: #4f46e5;
+      border: none;
+      padding: 13px 22px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-box {
+        padding: 28px;
+      }
+
+      .search {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="logo">Study<span>Lab</span> 📚</div>
+
+    <button class="theme-btn" onclick="toggleTheme()">
+      🌙 Modo escuro
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-box">
+    <h1>Seu espaço para estudar.</h1>
+
+    <p>
+      Revise Biologia, Química e Física de maneira simples e organizada.
+      Escolha uma matéria abaixo, leia o resumo e teste seus conhecimentos
+      com o quiz.
+    </p>
+
+    <div class="search">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="🔎 Pesquisar matéria..."
+        oninput="searchSubjects()"
+      >
+    </div>
+  </div>
+</section>
+
+<main>
+
+  <div class="section-title">
+    <h2>📚 Matérias</h2>
+    <p>Selecione um conteúdo para começar seus estudos.</p>
+  </div>
+
+  <section class="subjects" id="subjects">
+
+    <div class="subject" data-name="homeostase" onclick="showContent('homeostase')">
+      <div class="subject-icon">🧬</div>
+      <h3>Homeostase</h3>
+      <p>Entenda como o organismo mantém o equilíbrio interno.</p>
+    </div>
+
+    <div class="subject" data-name="tecido epitelial" onclick="showContent('epitelial')">
+      <div class="subject-icon">🔬</div>
+      <h3>Tecido Epitelial</h3>
+      <p>Estude características, funções e classificações.</p>
+    </div>
+
+    <div class="subject" data-name="alimentação" onclick="showContent('alimentacao')">
+      <div class="subject-icon">🍎</div>
+      <h3>Alimentação</h3>
+      <p>Conheça nutrientes, funções e alimentação equilibrada.</p>
+    </div>
+
+    <div class="subject" data-name="termoquímica" onclick="showContent('termoquimica')">
+      <div class="subject-icon">🔥</div>
+      <h3>Termoquímica</h3>
+      <p>Aprenda sobre calor, entalpia e reações químicas.</p>
+    </div>
+
+    <div class="subject" data-name="hidrostática" onclick="showContent('hidrostatica')">
+      <div class="subject-icon">💧</div>
+      <h3>Hidrostática</h3>
+      <p>Estude pressão, densidade e princípios dos fluidos.</p>
+    </div>
+
+  </section>
+
+  <!-- CONTEÚDOS -->
+
+  <section class="content">
+
+    <div id="homeostase" class="content-card hidden">
+      <h2>🧬 Homeostase</h2>
+
+      <p>
+        Homeostase é a capacidade de um organismo manter condições internas
+        relativamente estáveis mesmo quando o ambiente externo sofre mudanças.
+      </p>
+
+      <h3>Principais exemplos</h3>
+
+      <ul>
+        <li>Controle da temperatura corporal.</li>
+        <li>Controle da glicose no sangue.</li>
+        <li>Regulação da quantidade de água no organismo.</li>
+        <li>Controle do pH do sangue.</li>
+      </ul>
+
+      <h3>Feedback negativo</h3>
+
+      <p>
+        É um mecanismo que reduz uma alteração e ajuda o organismo a retornar
+        ao equilíbrio. A regulação da temperatura corporal é um exemplo.
+      </p>
+
+      <h3>Feedback positivo</h3>
+
+      <p>
+        Amplifica determinada resposta. Um exemplo é o aumento das contrações
+        durante o parto.
+      </p>
+    </div>
+
+
+    <div id="epitelial" class="content-card hidden">
+      <h2>🔬 Tecido Epitelial</h2>
+
+      <p>
+        O tecido epitelial é formado por células muito próximas umas das outras
+        e possui pouca matriz extracelular.
+      </p>
+
+      <h3>Funções</h3>
+
+      <ul>
+        <li>Proteção.</li>
+        <li>Absorção.</li>
+        <li>Secreção.</li>
+        <li>Revestimento.</li>
+        <li>Percepção de estímulos em determinados epitélios.</li>
+      </ul>
+
+      <h3>Características</h3>
+
+      <ul>
+        <li>Células justapostas.</li>
+        <li>Alta capacidade de renovação.</li>
+        <li>Presença de membrana basal.</li>
+        <li>Ausência de vasos sanguíneos no tecido epitelial.</li>
+      </ul>
+
+      <h3>Tipos de epitélio</h3>
+
+      <p>
+        Os epitélios podem ser classificados de acordo com o número de camadas
+        e o formato das células.
+      </p>
+
+      <ul>
+        <li>Simples.</li>
+        <li>Estratificado.</li>
+        <li>Pavimentoso.</li>
+        <li>Cúbico.</li>
+        <li>Prismático.</li>
+      </ul>
+    </div>
+
+
+    <div id="alimentacao" class="content-card hidden">
+      <h2>🍎 Alimentação</h2>
+
+      <p>
+        Uma alimentação equilibrada fornece energia e nutrientes necessários
+        para o funcionamento, crescimento e manutenção do organismo.
+      </p>
+
+      <h3>Principais nutrientes</h3>
+
+      <ul>
+        <li><strong>Carboidratos:</strong> importante fonte de energia.</li>
+        <li><strong>Proteínas:</strong> participam da construção e reparação dos tecidos.</li>
+        <li><strong>Lipídios:</strong> fonte de energia e componentes das membranas celulares.</li>
+        <li><strong>Vitaminas:</strong> participam de diversas funções metabólicas.</li>
+        <li><strong>Minerais:</strong> importantes para funções estruturais e metabólicas.</li>
+        <li><strong>Água:</strong> essencial para diversas reações e processos do organismo.</li>
+      </ul>
+
+      <h3>Alimentação equilibrada</h3>
+
+      <p>
+        Uma dieta adequada deve apresentar variedade e equilíbrio entre os
+        diferentes grupos de alimentos, levando em consideração as necessidades
+        individuais.
+      </p>
+    </div>
+
+
+    <div id="termoquimica" class="content-card hidden">
+      <h2>🔥 Termoquímica</h2>
+
+      <p>
+        Termoquímica é a área da Química que estuda as trocas de energia,
+        principalmente na forma de calor, envolvidas nas reações químicas.
+      </p>
+
+      <h3>Reações exotérmicas</h3>
+
+      <p>
+        Liberam calor para o ambiente.
+      </p>
+
+      <div class="formula">
+        ΔH &lt; 0 → reação exotérmica
+      </div>
+
+      <h3>Reações endotérmicas</h3>
+
+      <p>
+        Absorvem calor do ambiente.
+      </p>
+
+      <div class="formula">
+        ΔH &gt; 0 → reação endotérmica
+      </div>
+
+      <h3>Fórmula do calor sensível</h3>
+
+      <div class="formula">
+        Q = m · c · ΔT
+      </div>
+
+      <p>
+        Onde Q representa a quantidade de calor, m é a massa, c é o calor
+        específico e ΔT é a variação de temperatura.
+      </p>
+    </div>
+
+
+    <div id="hidrostatica" class="content-card hidden">
+      <h2>💧 Hidrostática</h2>
+
+      <p>
+        Hidrostática é a área da Física que estuda os fluidos em equilíbrio.
+      </p>
+
+      <h3>Densidade</h3>
+
+      <div class="formula">
+        d = m / V
+      </div>
+
+      <p>
+        A densidade corresponde à relação entre a massa e o volume de uma
+        substância.
+      </p>
+
+      <h3>Pressão</h3>
+
+      <div class="formula">
+        P = F / A
+      </div>
+
+      <p>
+        Pressão é a razão entre uma força aplicada perpendicularmente a uma
+        superfície e a área sobre a qual ela atua.
+      </p>
+
+      <h3>Pressão hidrostática</h3>
+
+      <div class="formula">
+        P = d · g · h
+      </div>
+
+      <p>
+        A pressão exercida por um líquido aumenta conforme aumenta a
+        profundidade.
+      </p>
+
+      <h3>Princípio de Pascal</h3>
+
+      <p>
+        Uma variação de pressão aplicada a um fluido confinado é transmitida
+        integralmente a todos os pontos do fluido.
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- QUIZ -->
+
+  <section class="quiz">
+
+    <h2>📝 Quiz rápido</h2>
+
+    <div class="question">
+      <p>1. O que é homeostase?</p>
+
+      <label>
+        <input type="radio" name="q1" value="a">
+        Manutenção do equilíbrio interno do organismo
+      </label>
+
+      <label>
+        <input type="radio" name="q1" value="b">
+        Produção de energia exclusivamente
+      </label>
+
+      <label>
+        <input type="radio" name="q1" value="c">
+        Divisão celular
+      </label>
+    </div>
+
+
+    <div class="question">
+      <p>2. Qual é a fórmula da densidade?</p>
+
+      <label>
+        <input type="radio" name="q2" value="a">
+        d = V / m
+      </label>
+
+      <label>
+        <input type="radio" name="q2" value="b">
+        d = m / V
+      </label>
+
+      <label>
+        <input type="radio" name="q2" value="c">
+        d = m · V
+      </label>
+    </div>
+
+
+    <div class="question">
+      <p>3. Uma reação exotérmica:</p>
+
+      <label>
+        <input type="radio" name="q3" value="a">
+        Absorve calor
+      </label>
+
+      <label>
+        <input type="radio" name="q3" value="b">
+        Não envolve energia
+      </label>
+
+      <label>
+        <input type="radio" name="q3" value="c">
+        Libera calor
+      </label>
+    </div>
+
+
+    <div class="question">
+      <p>4. Qual tecido possui função de revestimento?</p>
+
+      <label>
+        <input type="radio" name="q4" value="a">
+        Epitelial
+      </label>
+
+      <label>
+        <input type="radio" name="q4" value="b">
+        Nervoso
+      </label>
+
+      <label>
+        <input type="radio" name="q4" value="c">
+        Muscular
+      </label>
+    </div>
+
+
+    <div class="question">
+      <p>5. Qual é a fórmula do calor sensível?</p>
+
+      <label>
+        <input type="radio" name="q5" value="a">
+        Q = m · c · ΔT
+      </label>
+
+      <label>
+        <input type="radio" name="q5" value="b">
+        Q = F / A
+      </label>
+
+      <label>
+        <input type="radio" name="q5" value="c">
+        Q = m / V
+      </label>
+    </div>
+
+
+    <button onclick="checkQuiz()">Ver resultado</button>
+
+    <div id="result"></div>
+
+  </section>
+
+</main>
+
+<footer>
+  <p>StudyLab 📚 — Seu espaço de estudos</p>
+  <p>Feito para facilitar sua revisão.</p>
+</footer>
+
+
+<script>
+
+  // MODO ESCURO
+  function toggleTheme() {
+    document.body.classList.toggle("dark");
+
+    const button = document.querySelector(".theme-btn");
+
+    if (document.body.classList.contains("dark")) {
+      button.innerHTML = "☀️ Modo claro";
+    } else {
+      button.innerHTML = "🌙 Modo escuro";
+    }
+  }
+
+
+  // MOSTRAR CONTEÚDO
+  function showContent(id) {
+
+    const cards = document.querySelectorAll(".content-card");
+
+    cards.forEach(card => {
+      card.classList.add("hidden");
+    });
+
+    const selected = document.getElementById(id);
+
+    selected.classList.remove("hidden");
+
+    selected.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+
+  // BUSCA
+  function searchSubjects() {
+
+    const search =
+      document.getElementById("searchInput").value.toLowerCase();
+
+    const subjects =
+      document.querySelectorAll(".subject");
+
+    subjects.forEach(subject => {
+
+      const name =
+        subject.dataset.name.toLowerCase();
+
+      if (name.includes(search)) {
+        subject.style.display = "block";
+      } else {
+        subject.style.display = "none";
+      }
+
+    });
+  }
+
+
+  // QUIZ
+  function checkQuiz() {
+
+    const answers = {
+      q1: "a",
+      q2: "b",
+      q3: "c",
+      q4: "a",
+      q5: "a"
+    };
+
+    let score = 0;
+
+    for (let question in answers) {
+
+      const selected =
+        document.querySelector(
+          `input[name="${question}"]:checked`
+        );
+
+      if (selected && selected.value === answers[question]) {
+        score++;
+      }
+    }
+
+    const result = document.getElementById("result");
+
+    if (score === 5) {
+      result.innerHTML =
+        "🏆 Parabéns! Você acertou 5/5!";
+    } else if (score >= 3) {
+      result.innerHTML =
+        `👏 Muito bem! Você acertou ${score}/5. Continue estudando!`;
+    } else {
+      result.innerHTML =
+        `📚 Você acertou ${score}/5. Revise os conteúdos e tente novamente!`;
+    }
+  }
+
+</script>
+
+</body>
+</html>
